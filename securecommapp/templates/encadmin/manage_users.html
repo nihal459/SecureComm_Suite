@@ -1,0 +1,46 @@
+{% extends 'encadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Manage Users</h5>
+        <br>
+        <h5 class="card-title mb-4">View Users</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Profile Picture</th>
+                    <th>Verified</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Replace the content inside the loop with your actual data -->
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.get_full_name }}</td>
+                        <td>
+                            {% if user.profile_picture %}
+                                <img src="{{ user.imageURL }}" alt="{{ user.username }}'s Profile Picture" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{% if user.verified %} &#10004; {% else %} &#10008; {% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

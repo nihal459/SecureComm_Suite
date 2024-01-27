@@ -1,0 +1,58 @@
+{% extends 'encadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Text Encryption Using DNA Algorithm</h5>
+        <form method="post" action="#">
+            {% csrf_token %}
+            <!-- Text Input -->
+            <div class="form-group">
+                <label for="text">Text:</label>
+                <input type="text" class="form-control" id="text" name="text" placeholder="Enter text">
+            </div>
+            <br>
+            <!-- Key Input -->
+            <div class="form-group">
+                <label for="key">Key:</label>
+                <input type="text" class="form-control" id="key" name="key" placeholder="Enter key">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="dropdown">Select a user:</label>
+                <select class="form-control" id="dropdown" name="dropdown">
+                    <option value="">Select a user</option>
+                    <option value="for everyone">For Everyone</option>
+
+                {% for i in users %}
+
+                    <option value="{{i.username}}">{{i.username}}</option>
+                
+                {% endfor %}
+                </select>
+            </div>
+            <br>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Encrypt</button>
+        </form>      
+
+        <div class="container mt-5">
+            <h2>Encryption Confirmation <a href="{% url 'text_enc' %}"><i class="ti ti-refresh"></i></a></h2>
+            <br>
+            <p><strong>Original Text:</strong> {{ original_text }}</p>
+            <p><strong>Encrypted Text:</strong> {{ encrypted_text }}</p>
+            <p><strong>Key:</strong> {{ key }}</p>
+            <p><strong>User:</strong> {{ user_name }}</p>
+        
+            <hr>
+        </div>
+        <br>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

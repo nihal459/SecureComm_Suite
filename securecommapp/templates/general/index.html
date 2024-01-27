@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Communication Suite</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background: url("{% static 'lock.jpg' %}") no-repeat center center fixed;
+          background-size: cover;
+          height: 100vh; /* Ensure the background covers the full viewport height */
+        }
+
+        .head
+        {
+            color:white;
+            font-family: verdana;
+            text-align: right;
+            margin-right: 100px;
+        }
+
+        .box
+        {
+            height:350px;
+            width:350px;
+            background-color: rgba(128, 128, 128, 0.383);
+            float:right;
+            margin-right: 190px;
+            text-align: center;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .log
+        {
+            text-decoration: none;
+            color:black;
+            padding:10px;
+            font-family: verdana;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .log:hover
+        {
+            background-color: rgb(163, 163, 163);
+
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+
+    <h1 class="head">Secure Communication Suite</h1>
+    <br>
+    <div class="box">
+        <br>
+        <br>
+        <a href="{% url 'admin_login' %}" class="log">Admin Login</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'user_login' %}" class="log">User Login</a>
+    </div>
+    
+</body>
+</html>
