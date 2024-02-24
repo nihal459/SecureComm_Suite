@@ -17,6 +17,10 @@
                     <th>Name</th>
                     <th>Profile Picture</th>
                     <th>Verified</th>
+                    <th>Verify</th>
+                    <th>Delete</th>
+
+
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +37,16 @@
                                 No Image
                             {% endif %}
                         </td>
-                        <td>{% if user.verified %} &#10004; {% else %} &#10008; {% endif %}</td>
+                        <td>
+                            {% if user.verified %}
+                              <span class="text-success">&#10004;</span> <!-- Green tick mark -->
+                            {% else %}
+                              <span class="text-danger">&#10008;</span> <!-- Red cross mark -->
+                            {% endif %}
+                        </td>   
+                        <td><a href="{% url 'verify_user' user.pk %}" class="btn btn-success">Verify</a></td>
+
+                        <td><a href="{% url 'delete_user' user.pk %}"><span style="font-size:20px; color:red; font-weight:700;">&#128465;</span></a></td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -41,6 +54,7 @@
       </div>
     </div>
 </div>
+
 
 
 {% endblock %}

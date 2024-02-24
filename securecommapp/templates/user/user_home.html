@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Communication Suite</title>
-</head>
-<body>
-    <h1>Welcome to secure communication suite</h1>
-    <br>
+{% extends 'encadmin/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Welcome, {{request.user}} {% if request.user.verified %}<img src="{% static 'verify.png' %}" height="25px">{% endif %}</h5>
+        <p class="mb-0">User dashboard</p>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -30,3 +30,29 @@ class Text(models.Model):
 
     def __str__(self):
         return self.textfield
+    
+
+class File(models.Model):
+    original_file = models.FileField(upload_to='files/original/')  # Field for storing the original file
+    encrypted_file = models.FileField(upload_to='files/encrypted/')  # Field for storing the encrypted file
+    key = models.CharField(max_length=255)  # Field for storing the encryption key
+    read = models.BooleanField(default=False)  # Field for marking if the file has been read
+    user_name = models.CharField(max_length=255, null=True, blank=True)  # Field for storing the username or "for everyone"
+    date = models.DateTimeField(auto_now_add=True)  # Automatic date field
+
+    def __str__(self):
+        return f"File: {self.original_file.name}"
+    
+
+class Image(models.Model):
+    original_file = models.ImageField(upload_to='Original_Image', blank=True, null=True) # Field for storing the original file
+    encrypted_file = models.ImageField(upload_to='Steganographed_Image', blank=True, null=True) # Field for storing the encrypted file
+    message = models.CharField(max_length=1000, null=True, blank=True)  # Field for storing the encryption key
+
+    key = models.CharField(max_length=255)  # Field for storing the encryption key
+    read = models.BooleanField(default=False)  # Field for marking if the file has been read
+    user_name = models.CharField(max_length=255, null=True, blank=True)  # Field for storing the username or "for everyone"
+    date = models.DateTimeField(auto_now_add=True)  # Automatic date field
+
+    def __str__(self):
+        return f"File: {self.original_file.name}"

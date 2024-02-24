@@ -1,0 +1,32 @@
+{% extends 'encadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% else %}
+            {% if msg %}
+                <h5 class="card-title fw-semibold mb-4">Secret Message After Decryption</h5>
+                <p>{{msg.message}}</p>
+                {% else %}
+                <h5 class="card-title fw-semibold mb-4">Enter Password</h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+            {% endif %}
+        {% endif %}
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

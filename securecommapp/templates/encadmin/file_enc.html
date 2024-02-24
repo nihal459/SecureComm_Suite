@@ -6,14 +6,14 @@
 <div class="container-fluid">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title fw-semibold mb-4">Text Encryption Using DNA Algorithm</h5>
-        <form method="post" action="#">
+        <h5 class="card-title fw-semibold mb-4">File Encryption Using DNA Algorithm</h5>
+        <form method="post" action="#" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- Text Input -->
             <div class="form-group">
-                <label for="text">Text:</label>
-                <input type="text" class="form-control" id="text" name="text" placeholder="Enter text">
-            </div>
+                <label for="file">Upload File:</label>
+                <input type="file" class="form-control-file" id="file" name="file" accept=".docx, .pdf">
+            </div>            
             <br>
             <!-- Key Input -->
             <div class="form-group">
@@ -39,38 +39,33 @@
             <button type="submit" class="btn btn-primary">Encrypt</button>
         </form>      
 
-        <div class="container mt-5">
-            <h2>Encryption Confirmation <a href="{% url 'text_enc' %}"><i class="ti ti-refresh"></i></a></h2>
-            <br>
-            <p><strong>Original Text:</strong> {{ original_text }}</p>
-            <p><strong>Encrypted Text:</strong> {{ encrypted_text }}</p>
-            <p><strong>Key:</strong> {{ key }}</p>
-            <p><strong>User:</strong> {{ user_name }}</p>
-        
-            <hr>
-        </div>
+
         <br>
 
         <div class="container">
-            <h2>Encrypted Texts</h2>
+            <h2>Encrypted Files</h2>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Text</th>
-                  <th>Encrypted Output</th>
+                  <th>Original File</th>
+                  <th>Encrypted File</th>
                   <th>Key</th>
                   <th>Read</th>
                   <th>Sent Date</th>
                   <th>Viewer</th>
-                  <th></th>
+                  <th>Delete</th>
 
                 </tr>
               </thead>
               <tbody>
-                {% for text in texts %}
+                {% for text in files %}
                 <tr>
-                  <td>{{ text.textfield }}</td>
-                  <td>{{ text.encrypted_text }}</td>
+                  <td>
+                    {{ text.original_file }}
+                </td>
+                <td>
+                    {{ text.encrypted_file }}
+                </td>
                   <td>{{ text.key }}</td>
                   <td>
                     {% if text.read %}
@@ -81,7 +76,7 @@
                   </td>                  
                   <td>{{ text.date|date:"d-m-Y" }}</td>
                   <td>{{ text.user_name }}</td>
-                  <td><a href="{% url 'delete_text' text.pk %}" class="btn btn-danger">Delete</a></td> 
+                  <td><a href="{% url 'delete_file' text.pk %}" class="btn btn-danger">Delete</a></td>
 
                 </tr>
                 {% endfor %}
@@ -94,6 +89,7 @@
 
 <br>
 <br>
+
 
 
 

@@ -6,72 +6,79 @@
 <div class="container-fluid">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title fw-semibold mb-4">Text Encryption Using DNA Algorithm</h5>
-        <form method="post" action="#">
+        <h5 class="card-title fw-semibold mb-4">Image Encryption Using Steganography</h5>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    
+        <form method="post" action="#" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- Text Input -->
             <div class="form-group">
-                <label for="text">Text:</label>
-                <input type="text" class="form-control" id="text" name="text" placeholder="Enter text">
+                <label for="file">Upload Image File (PNG only):</label>
+                <input type="file" class="form-control-file" id="file" name="file" accept=".png" required>
             </div>
             <br>
             <!-- Key Input -->
             <div class="form-group">
                 <label for="key">Key:</label>
-                <input type="text" class="form-control" id="key" name="key" placeholder="Enter key">
+                <input type="text" class="form-control" id="key" name="key" placeholder="Enter key" required>
             </div>
             <br>
+            <!-- Message Input -->
+            <div class="form-group">
+                <label for="message">Message to hide:</label>
+                <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+            </div>
+            <br>
+            <!-- User Selection -->
             <div class="form-group">
                 <label for="dropdown">Select a user:</label>
-                <select class="form-control" id="dropdown" name="dropdown">
+                <select class="form-control" id="dropdown" name="dropdown" required>
                     <option value="">Select a user</option>
                     <option value="for everyone">For Everyone</option>
-
-                {% for i in users %}
-
-                    <option value="{{i.username}}">{{i.username}}</option>
-                
-                {% endfor %}
+                    {% for i in users %}
+                        <option value="{{ i.username }}">{{ i.username }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <br>
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">Encrypt</button>
-        </form>      
+        </form>
+      
 
-        <div class="container mt-5">
-            <h2>Encryption Confirmation <a href="{% url 'text_enc' %}"><i class="ti ti-refresh"></i></a></h2>
-            <br>
-            <p><strong>Original Text:</strong> {{ original_text }}</p>
-            <p><strong>Encrypted Text:</strong> {{ encrypted_text }}</p>
-            <p><strong>Key:</strong> {{ key }}</p>
-            <p><strong>User:</strong> {{ user_name }}</p>
-        
-            <hr>
-        </div>
+
         <br>
 
         <div class="container">
-            <h2>Encrypted Texts</h2>
+            <h2>Encrypted Image</h2>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Text</th>
-                  <th>Encrypted Output</th>
+                  <th>Original Image</th>
+                  <th>Encrypted Image</th>
                   <th>Key</th>
+                  <th>Message
                   <th>Read</th>
                   <th>Sent Date</th>
                   <th>Viewer</th>
-                  <th></th>
+                  <th>Delete</th>
 
                 </tr>
               </thead>
               <tbody>
-                {% for text in texts %}
+                {% for text in images %}
                 <tr>
-                  <td>{{ text.textfield }}</td>
-                  <td>{{ text.encrypted_text }}</td>
+                  <td>
+                    <img src="{{ text.original_file.url }}" height="50px">
+                </td>
+                <td>
+                    <img src="{{ text.encrypted_file.url }}" height="50px">                    
+                </td>
                   <td>{{ text.key }}</td>
+                  <td>{{ text.message }}</td>
+
                   <td>
                     {% if text.read %}
                       <span class="text-success">&#10004;</span> <!-- Green tick mark -->
@@ -81,11 +88,11 @@
                   </td>                  
                   <td>{{ text.date|date:"d-m-Y" }}</td>
                   <td>{{ text.user_name }}</td>
-                  <td><a href="{% url 'delete_text' text.pk %}" class="btn btn-danger">Delete</a></td> 
+                  <td><a href="{% url 'delete_image' text.pk %}" class="btn btn-danger">Delete</a></td> 
 
                 </tr>
                 {% endfor %}
-              </tbody>
+              </tbody> 
             </table>
           </div>
     </div>
@@ -94,6 +101,7 @@
 
 <br>
 <br>
+
 
 
 

@@ -1,0 +1,67 @@
+{% extends 'encadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+{% if request.user.verified %}
+
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">View Encrypted Text Messages</h5>
+
+
+        <div class="container">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Encrypted Text</th>
+                  <th>Sent Date</th>
+                  <th>Read Status</th>
+                  <th>View</th>
+                  <th>Mark Read</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for text in texts %}
+                <tr>
+                  <td>{{ text.encrypted_text }}</td>
+                  <td>{{ text.date|date:"d-m-Y" }}</td>
+                  <td>
+                    {% if text.read %}
+                      <span class="text-success">&#10004;</span> <!-- Green tick mark -->
+                    {% else %}
+                      <span class="text-danger">&#10008;</span> <!-- Red cross mark -->
+                    {% endif %}
+                  </td>  
+                  <td><a href="{% url 'view_text_msg' text.pk %}" class="btn btn-primary">View</a></td>
+                  <td><a href="{% url 'mark_read' text.pk %}" class="btn btn-success">Mark Read</a></td>
+                         
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+
+
+      </div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">You are not verified yet. Wait for your verification and then view the messages</h5>
+      </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
